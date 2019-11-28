@@ -12,7 +12,7 @@ after_success:
   - docker build -t ajmaradiaga/ob-server ./server
   - docker build -t ajmaradiaga/ob-worker ./worker
   - docker build -t ajmaradiaga/ob-nginx ./nginx
-  - docker login -u "$DOCKER_ID" -p "$DOCKER_PWD"
+  - echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push ajmaradiaga/ob-client
   - docker push ajmaradiaga/ob-server
   - docker push ajmaradiaga/ob-worker
