@@ -1,0 +1,19 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t ajmaradiaga/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true ajmaradiaga/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t ajmaradiaga/ob-client ./client
+  - docker build -t ajmaradiaga/ob-server ./server
+  - docker build -t ajmaradiaga/ob-worker ./worker
+  - docker build -t ajmaradiaga/ob-nginx ./nginx
+  - docker login -u "$DOCKER_ID" -p "$DOCKER_PWD"
+  - docker push ajmaradiaga/ob-client
+  - docker push ajmaradiaga/ob-server
+  - docker push ajmaradiaga/ob-worker
+  - docker push ajmaradiaga/ob-nginx
