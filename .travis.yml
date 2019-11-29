@@ -19,7 +19,6 @@ after_success:
   - docker push ajmaradiaga/ob-nginx
 
 deploy:
-  edge: true
   provider: elasticbeanstalk
   region: "eu-west-1"
   name: "octo-brocoli"
