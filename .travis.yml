@@ -17,3 +17,18 @@ after_success:
   - docker push ajmaradiaga/ob-server
   - docker push ajmaradiaga/ob-worker
   - docker push ajmaradiaga/ob-nginx
+
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: "eu-west-1"
+  name: "octo-brocoli"
+  env: "OctoBrocoli-Env"
+  bucket_name: "elasticbeanstalk-eu-west-1-899085916962"
+  bucket_path: "octo-brocoli"
+  on:
+    branch: "master"
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+
+language: generic
